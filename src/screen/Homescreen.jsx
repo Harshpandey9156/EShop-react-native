@@ -1,121 +1,86 @@
-import { 
-  StyleSheet, 
-  Text, 
-  View, 
-  TextInput, 
-  TouchableOpacity, 
-  Modal, 
-  ScrollView, 
-  FlatList 
-} from 'react-native';
 import React, { useState } from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, Modal } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from '../components/Header';
-import Productcart from '../components/Productcart';
+import Product from '../components/Productcart';
+import Cart from '../components/Cart';
 
 const Homescreen = () => {
-  const [showCategories, setShowCategories] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(''); // Search query state
+  const [cart, setCart] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
+  const [isCartVisible, setIsCartVisible] = useState(false);
 
-  const category = [
-    'Trending Now', 
-    'Best Sellers', 
-    'New Arrivals', 
-    'Men', 
-    'Women', 
-    'Kids', 
-    'Home & Living', 
-    'Electronics', 
-    'Beauty & Health', 
-    'Sports & Fitness', 
-    'Books & Stationery', 
-    'Toys & Games', 
-    'Grocery & Essentials'
-  ];
+  // ✅ Add product to cart (increase quantity if already exists)
+  const addToCart = (product) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find(item => item.id === product.id);
+      if (existingItem) {
+        return prevCart.map(item =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      } else {
+        return [...prevCart, { ...product, quantity: 1 }];
+      }
+    });
+  };
 
-  const toggleCategories = () => {
-    setShowCategories(!showCategories);
+  // ✅ Move item to wishlist and remove from cart
+  const addToWishlist = (product) => {
+    setWishlist([...wishlist, product]);
+    setCart(cart.filter(item => item.id !== product.id));
+  };
+
+  // ✅ Move cart items to orders (clear cart)
+  const moveToOrders = () => {
+    alert('Order placed successfully!');
+    setCart([]);
   };
 
   return (
     <LinearGradient colors={["#FDF0F3", "#FFFBFC"]} style={styles.container}>
-      {/* Hamburger Menu */}
-      <TouchableOpacity style={styles.hamburger} onPress={toggleCategories}>
-        <Icon name="bars" size={30} color="#E91E63" />
-      </TouchableOpacity>
-
-      {/* Header Section */}
       <Header />
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>E-Shop</Text>
-      </View>
+      <Text style={styles.headerTitle}>E-Shop</Text>
 
-      {/* 🔍 Search Bar (Only One) */}
+      {/* 🔍 Search Bar */}
       <View style={styles.searchContainer}>
         <Icon name="search" size={20} color="#888" style={styles.searchIcon} />
         <TextInput 
           placeholder="Search for products..." 
           style={styles.searchInput}
           value={searchQuery}
-          onChangeText={(text) => setSearchQuery(text)} // Update searchQuery state
+          onChangeText={(text) => setSearchQuery(text)}
         />
       </View>
 
-      {/* Horizontal Category List */}
-      <View style={styles.categoryContainer}>
-        <FlatList
-          data={category}
-          keyExtractor={(item, index) => index.toString()} 
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.flatListContainer}
-          renderItem={({ item }) => {
-            const isSelected = selectedCategory === item;
-            return (
-              <TouchableOpacity 
-                style={[
-                  styles.categoryItemContainer, 
-                  isSelected ? styles.selectedCategoryItem : styles.unselectedCategoryItem
-                ]}
-                onPress={() => setSelectedCategory(item)}
-              >
-                <Text 
-                  style={[
-                    styles.categoryItemText, 
-                    isSelected ? styles.selectedCategoryText : styles.unselectedCategoryText
-                  ]}
-                >
-                  {item}
-                </Text>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
+      {/* 🛒 Product List */}
+      <Product 
+        selectedCategory={selectedCategory} 
+        searchQuery={searchQuery} 
+        addToCart={addToCart} 
+      />
 
-      {/* Modal for Categories */}
-      <Modal
-        visible={showCategories}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={toggleCategories}
-      >
-        <TouchableOpacity style={styles.modalBackdrop} onPress={toggleCategories}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Categories</Text>
-            <ScrollView>
-              {category.map((cat, index) => (
-                <Text key={index} style={styles.modalCategoryItem}>{cat}</Text>
-              ))}
-            </ScrollView>
-          </View>
-        </TouchableOpacity>
+      {/* 🛍 Open Cart Button */}
+      <TouchableOpacity style={styles.cartButton} onPress={() => setIsCartVisible(true)}>
+        <Text style={styles.cartButtonText}>🛒 View Cart ({cart.length})</Text>
+      </TouchableOpacity>
+
+      {/* 🛍 Cart Modal */}
+      <Modal visible={isCartVisible} animationType="slide">
+        <View style={styles.modalContainer}>
+          <Cart 
+            cart={cart} 
+            setCart={setCart} 
+            addToWishlist={addToWishlist} 
+            moveToOrders={moveToOrders}
+          />
+          <TouchableOpacity style={styles.closeButton} onPress={() => setIsCartVisible(false)}>
+            <Text style={styles.closeButtonText}>Close Cart</Text>
+          </TouchableOpacity>
+        </View>
       </Modal>
-
-      {/* 🛒 Product List (Pass searchQuery & selectedCategory) */}
-      <Productcart selectedCategory={selectedCategory} searchQuery={searchQuery} />
     </LinearGradient>
   );
 };
@@ -127,20 +92,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 40,
   },
-  hamburger: {
-    position: 'absolute',
-    top: 40,
-    left: 20,
-    zIndex: 10,
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 10,
-  },
   headerTitle: {
     fontSize: 28,
     fontWeight: 'bold',
+    textAlign: 'center',
     color: '#E91E63',
+    marginBottom: 10,
   },
   searchContainer: {
     flexDirection: 'row',
@@ -149,9 +106,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     marginHorizontal: 20,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
     elevation: 3,
   },
   searchIcon: {
@@ -160,58 +114,33 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
   },
-  categoryContainer: {
-    height: 40,  
-    marginTop: 10,
-  },
-  flatListContainer: {
-    paddingHorizontal: 10,
-  },
-  categoryItemContainer: {
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    marginHorizontal: 8,
-    borderRadius: 20,
-    elevation: 2,
-  },
-  categoryItemText: {
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  selectedCategoryItem: {
-    backgroundColor: "#E91E63",
-  },
-  selectedCategoryText: {
-    color: "#fff",
-  },
-  unselectedCategoryItem: {
-    backgroundColor: "#fff",
-  },
-  unselectedCategoryText: {
-    color: "#000",
-  },
-  modalBackdrop: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
+  cartButton: {
+    backgroundColor: '#E91E63',
+    padding: 10,
+    borderRadius: 8,
     alignItems: 'center',
+    margin: 20,
+  },
+  cartButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   modalContainer: {
-    width: '80%',
-    backgroundColor: '#fff',
+    flex: 1,
     padding: 20,
-    borderRadius: 10,
-    elevation: 5,
+    backgroundColor: '#fff',
   },
-  modalTitle: {
-    fontSize: 20,
+  closeButton: {
+    backgroundColor: '#E91E63',
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  closeButtonText: {
+    color: '#fff',
+    fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 20,
   },
-  modalCategoryItem: {
-    fontSize: 18,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-});  
+});
