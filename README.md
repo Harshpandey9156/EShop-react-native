@@ -1,159 +1,63 @@
-🏦 React Native eShopping App
+# 🛒 E-Shop: React Native E-commerce App
 
-Welcome to the React Native eShopping App — a mobile e-commerce prototype that mimics features similar to Amazon, including a home screen with categories, a search bar, product listing, a wishlist, a cart with quantity control, and an orders section.
+Welcome to **E-Shop**, a beautifully designed React Native e-commerce application built as part of an internship assessment at Simplify Money. The app demonstrates a fully functional e-commerce frontend, built using **React Native**, integrated with **FakeStoreAPI**.
 
-✨ Features
+---
 
-🍔 Home Screen with Product Categories
+## 👨‍💻 Author
 
-🔍 Search Functionality
+**Harsh Pandey**  
+📧 Email: [harshpandey21012@gmail.com](mailto:harshpandey21012@gmail.com)  
+📍 Gorakhpur, Uttar Pradesh, India
 
-🛒 Add to Cart with Quantity Selector
+---
 
-❤️ Wishlist Management
+## ✨ Features
 
-✅ Order Placement
+- 🏠 **Home Screen** with search, trending, and categories
+- 🔍 **Search** for products in real-time
+- ❤️ **Wishlist** to save favorite items
+- 🛒 **Cart** with quantity control and total pricing
+- 📦 **Order Section** to show purchased items
+- 👤 **Profile Page** (static)
+- 🔄 **AsyncStorage** to persist cart and wishlist
 
-🏛️ Bottom Tab Navigation (Home, Orders, Wishlist, Cart, Profile)
+---
 
-🌐 Project Information
+## 📁 Folder Structure
 
-Project Name: eShopping App
 
-Developer: Harsh Pandey
 
-Email: harshpandey21012@gmail.com
 
-💼 Tech Stack
+---
 
-React Native
+## ⚙️ Requirements
 
-React Navigation
+Make sure you have the following installed:
 
-React Native Vector Icons
+- Node.js (>= 14)
+- npm or yarn
+- React Native CLI
+- Android Studio (for Android Emulator)
+- Xcode (for iOS Simulator on macOS)
+- Physical device or emulator
+- Internet access (to fetch data from [FakeStoreAPI](https://fakestoreapi.com))
 
-React Native Linear Gradient
+---
 
-AsyncStorage
+## 🚀 How to Run This Project
 
-⚙️ Requirements
+### 1. 📦 Clone the Repository
 
-Tool
-
-Version or Info
-
-Node.js
-
-v16.x or later
-
-npm or yarn
-
-npm 8+ / yarn 1.22+
-
-Android Studio
-
-With emulator set up
-
-Java JDK
-
-JDK 11 or later
-
-VS Code / any IDE
-
-Recommended for dev
-
-Xcode
-
-(for iOS only, Mac users)
-
-🚀 How to Run the App
-
-1. Clone the Repository
-
-git clone https://github.com/Harshpandey9156/eShoppingApp.git
-cd eShoppingApp
-
-2. Install Dependencies
+```bash
+git clone https://github.com/your-username/eshop-react-native.git
+cd eshop-react-native
 
 npm install
-# or
+# OR
 yarn install
-
-3. Android Setup
-
-Launch your Android emulator via Android Studio.
-
-Then run:
-
 npx react-native run-android
 
-4. iOS Setup (Mac only)
 
-cd ios && pod install
-cd ..
+Run on iOS (for macOS)
 npx react-native run-ios
-
-Optional: Run with Expo
-
-npm install -g expo-cli
-expo start
-
-Then scan the QR code using Expo Go app.
-
-🔧 Folder Structure
-
-eShoppingApp/
-├── App.js
-├── src/
-    ├── components/
-    │   ├── Header.js
-    │   ├── ProductCart.js
-    │   ├── Cart.js
-    │   ├── Wishlist.js
-    │   └── Order.js
-    ├── screen/
-    │   └── Homescreen.js
-    └── context/
-        └── CartContext.js
-
-🚫 Common Issues & Fixes
-
-Problem
-
-Solution
-
-Emulator not launching
-
-Open AVD Manager in Android Studio
-
-Bundler stuck
-
-Press r or restart metro
-
-iOS error with pods
-
-Run pod install again
-
-Cart not updating quantity
-
-Ensure cart state is updated immutably
-
-Product not reflecting
-
-Check if component is receiving updated props
-
-🚀 Future Scope
-
-Integrate real backend (Firebase / Express API)
-
-User authentication (Firebase Auth)
-
-Payment integration (Razorpay, Stripe)
-
-Product ratings & reviews
-
-💖 Thank You
-
-Made with passion by Harsh Pandey.
-
-If you found this project helpful, drop a star ⭐ and feel free to contribute!
