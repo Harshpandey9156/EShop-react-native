@@ -1,97 +1,159 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+🏦 React Native eShopping App
 
-# Getting Started
+Welcome to the React Native eShopping App — a mobile e-commerce prototype that mimics features similar to Amazon, including a home screen with categories, a search bar, product listing, a wishlist, a cart with quantity control, and an orders section.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+✨ Features
 
-## Step 1: Start Metro
+🍔 Home Screen with Product Categories
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+🔍 Search Functionality
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+🛒 Add to Cart with Quantity Selector
 
-```sh
-# Using npm
-npm start
+❤️ Wishlist Management
 
-# OR using Yarn
-yarn start
-```
+✅ Order Placement
 
-## Step 2: Build and run your app
+🏛️ Bottom Tab Navigation (Home, Orders, Wishlist, Cart, Profile)
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+🌐 Project Information
 
-### Android
+Project Name: eShopping App
 
-```sh
-# Using npm
-npm run android
+Developer: Harsh Pandey
 
-# OR using Yarn
-yarn android
-```
+Email: harshpandey21012@gmail.com
 
-### iOS
+💼 Tech Stack
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+React Native
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+React Navigation
 
-```sh
-bundle install
-```
+React Native Vector Icons
 
-Then, and every time you update your native dependencies, run:
+React Native Linear Gradient
 
-```sh
-bundle exec pod install
-```
+AsyncStorage
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+⚙️ Requirements
 
-```sh
-# Using npm
-npm run ios
+Tool
 
-# OR using Yarn
-yarn ios
-```
+Version or Info
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+Node.js
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+v16.x or later
 
-## Step 3: Modify your app
+npm or yarn
 
-Now that you have successfully run the app, let's make changes!
+npm 8+ / yarn 1.22+
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+Android Studio
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+With emulator set up
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+Java JDK
 
-## Congratulations! :tada:
+JDK 11 or later
 
-You've successfully run and modified your React Native App. :partying_face:
+VS Code / any IDE
 
-### Now what?
+Recommended for dev
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+Xcode
 
-# Troubleshooting
+(for iOS only, Mac users)
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+🚀 How to Run the App
 
-# Learn More
+1. Clone the Repository
 
-To learn more about React Native, take a look at the following resources:
+git clone https://github.com/Harshpandey9156/eShoppingApp.git
+cd eShoppingApp
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+2. Install Dependencies
+
+npm install
+# or
+yarn install
+
+3. Android Setup
+
+Launch your Android emulator via Android Studio.
+
+Then run:
+
+npx react-native run-android
+
+4. iOS Setup (Mac only)
+
+cd ios && pod install
+cd ..
+npx react-native run-ios
+
+Optional: Run with Expo
+
+npm install -g expo-cli
+expo start
+
+Then scan the QR code using Expo Go app.
+
+🔧 Folder Structure
+
+eShoppingApp/
+├── App.js
+├── src/
+    ├── components/
+    │   ├── Header.js
+    │   ├── ProductCart.js
+    │   ├── Cart.js
+    │   ├── Wishlist.js
+    │   └── Order.js
+    ├── screen/
+    │   └── Homescreen.js
+    └── context/
+        └── CartContext.js
+
+🚫 Common Issues & Fixes
+
+Problem
+
+Solution
+
+Emulator not launching
+
+Open AVD Manager in Android Studio
+
+Bundler stuck
+
+Press r or restart metro
+
+iOS error with pods
+
+Run pod install again
+
+Cart not updating quantity
+
+Ensure cart state is updated immutably
+
+Product not reflecting
+
+Check if component is receiving updated props
+
+🚀 Future Scope
+
+Integrate real backend (Firebase / Express API)
+
+User authentication (Firebase Auth)
+
+Payment integration (Razorpay, Stripe)
+
+Product ratings & reviews
+
+💖 Thank You
+
+Made with passion by Harsh Pandey.
+
+If you found this project helpful, drop a star ⭐ and feel free to contribute!
